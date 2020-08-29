@@ -1,53 +1,31 @@
-import React, { Component } from 'react';
-import FeatureSelect from './FeatureSelect'
+import React from 'react';
+import FEATURES from '../index'
+import Options from './Options'
 
-const USCurrencyFormat = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  });
 
-class MainForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            selected: {
-                Processor: {
-                  name: '17th Generation Intel Core HB (7 Core with donut spare)',
-                  cost: 700
-                },
-                'Operating System': {
-                  name: 'Ubuntu Linux 16.04',
-                  cost: 200
-                },
-                'Video Card': {
-                  name: 'Toyota Corolla 1.5v',
-                  cost: 1150.98
-                },
-                Display: {
-                  name: '15.6" UHD (3840 x 2160) 60Hz Bright Lights and Knobs',
-                  cost: 1500
-                }
-              }
-         }
-    }
+function MainForm (props) {
 
-    updateFeature = (feature, newValue) => {
-        const selected = Object.assign({}, this.state.selected);
-        selected[feature] = newValue;
-        this.setState({
-          selected
-        });
-      };
+    const features = Object.keys(FEATURES).map((feature, idx) => {
+      const featureHash = feature + '-' + idx;
+      return (
+        <fieldset className="feature" key={featureHash}>
+          <legend className="feature__name">
+            <h3>{feature}</h3>
+          </legend>
+          <Options 
+          feature={feature}
+          FEATURES={FEATURES}
+          theState={props.theState}
+          updateFeatures={props.updateFeatures}
+          />
+        </fieldset>
+      );
+    });
 
-    render() { 
-        return ( 
-            <form className="main__form">
-            <h2>Customize your laptop</h2>
-            {console.log(FeatureSelect.features)}
-            {FeatureSelect.features}
-          </form>
-         );
-    }
+    return(
+      <>
+      {features}
+      </>
+    )
 }
- 
-export default MainForm;
+export default MainForm

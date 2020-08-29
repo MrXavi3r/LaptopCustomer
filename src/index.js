@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App2 from './App2';
+import App from './components/App';
 
 const FEATURES = {
   Processor: [
@@ -46,4 +46,8 @@ const FEATURES = {
   ]
 };
 
-ReactDOM.render(<App2 features={FEATURES}/>, document.getElementById('root'));
+export default FEATURES
+
+ReactDOM.render(<App features={FEATURES}/>, document.getElementById('root'));
+
+
